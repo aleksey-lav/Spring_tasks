@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+          http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+    <!--<context:property-placeholder location="car.properties"/>-->
+
+
+    <!--<context:component-scan base-package="com.app.spring.mvc.homework00"/>-->
+    <mvc:annotation-driven />
+
+    <!--<bean id="myRepository" class="com.app.core.ch01.nospring.MyDefultRepositoryImpl" scope="prototype"/>-->
+
+    <!--<bean id="myService" class="com.app.core.ch01.nospring.PersonDefaultServiceImpl">-->
+    <!--<constructor-arg ref="myRepository"/>-->
+    <!--</bean>-->
+
+    <!--<bean id="myService2" class="com.app.core.ch01.nospring.PersonDefaultServiceImpl">-->
+    <!--<constructor-arg ref="myRepository"/>-->
+    <!--</bean>-->
+
+    <!--<bean id="myService3" class="com.app.core.ch01.nospring.PersonDefaultServiceImpl">-->
+    <!--<constructor-arg ref="myRepository2"/>-->
+    <!--</bean>-->
+
+    <!--<bean id="myRepository2" class="com.app.core.ch01.nospring.MyDefultRepositoryImpl"/>-->
+
+    <!--<bean id="myService4" class="com.app.core.ch01.nospring.PersonServiceDenisImpl">-->
+    <!--<property name="myRepository" ref="myRepository"/>-->
+    <!--</bean>-->
+
+    <!--<bean id="myService5" class="com.app.core.ch01.nospring.PersonServiceDenisImpl">-->
+    <!--<property name="myRepository" ref="myRepository2"/>-->
+    <!--</bean>-->
+
+    <!--<bean name="a,b,c;d" class="com.app.core.ch01.spring.MyDog"-->
+    <!--init-method="init"-->
+    <!--destroy-method="destroy"  />-->
+
+    <!--<bean name="a1,b1,c1;d1" class="com.app.core.ch01.spring.MyDog"-->
+    <!--init-method="init"-->
+    <!--destroy-method="destroy" scope="prototype"  />-->
+
+    <!--<bean name="lazyCat" class="com.app.core.ch01.spring.MyCat"-->
+    <!--init-method="init" lazy-init="true"-->
+    <!--/>-->
+
+    <!--<bean id="myCar" class="com.app.core.ch01.spring.MyCar">-->
+    <!--<property name="age" value="${car.age}"/>-->
+    <!--<property name="name" value="${car.name}"/>-->
+    <!--</bean>-->
+
+    <!--<bean id="mySTO" class="com.app.core.ch01.spring.MySTO">-->
+    <!--<property name="cuurentCarName" value="#{myCar.name}"/>-->
+    <!--</bean>-->
+
+    <!--<mvc:view-controller path="/" view-name="students_page"/>-->
+    <!--<mvc:view-controller path="/test/" view-name="test"/>-->
+
+    <!-- Thymleaf and jetty beans. Please do not panic if it confuse you:) -->
+    <!-- There you can find simple configuration for Jetty and Thymleaf -->
+    <bean id="jettyServer" class="org.eclipse.jetty.server.Server">
+        <constructor-arg name="port" value="8080"/>
+    </bean>
+
+    <bean id="templateResolver"
+          class="org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver">
+        <property name="prefix" value="src/main/resources/templates/" />
+        <property name="suffix" value=".html" />
+        <property name="templateMode" value="HTML" />
+        <property name="cacheable" value="false" />
+    </bean>
+
+    <bean id="templateEngine"
+          class="org.thymeleaf.spring5.SpringTemplateEngine">
+        <property name="templateResolver" ref="templateResolver" />
+        <property name="enableSpringELCompiler" value="true" />
+    </bean>
+
+    <bean class="org.thymeleaf.spring5.view.ThymeleafViewResolver">
+        <property name="templateEngine" ref="templateEngine" />
+        <property name="order" value="1" />
+        <property name="viewNames" value="*.html,*.xhtml" />
+    </bean>
+
+    <bean id="studentController"
+          class="com.app.spring.mvc.homework00.controller.StudentController">
+    </bean>
+    <bean id="studentService"
+          class="com.app.spring.mvc.homework00.service.StudentService">
+    </bean>
+    <bean id="studentDAO"
+          class="com.app.spring.mvc.homework00.dao.StudentDAO">
+    </bean>
+
+
+
+    <bean id="resolverJsp" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/resources/templates/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+
+</beans>
